@@ -157,6 +157,11 @@ class NetworkServiceBuilder(object):
         if self.conf.f5_global_routed_mode:
             return
 
+        if self.conf.create_selfip_port_early:
+            # Create the self IP port in Neutron early to kickstart HPB
+            self.bigip_selfip_manager.assure_bigip_selfip_port_only(
+                assure_bigip, service, subnetinfo)
+
         if not self.is_service_connected(service):
             raise f5_ex.NetworkNotReady(
                 "Network segment(s) definition incomplete")

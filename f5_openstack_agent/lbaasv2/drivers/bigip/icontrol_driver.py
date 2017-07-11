@@ -289,7 +289,14 @@ OPTS = [  # XXX maybe we should make this a dictionary
         'trace_service_requests',
         default=False,
         help='Log service object.'
-    )
+    ),
+    cfg.BoolOpt(
+        'create_selfip_port_early',
+        default=False,
+        help='Create the Neutron port for self IPs before the VLAN ID is '
+        'known. This can help kickstart dynamic segment creation when '
+        'hierarchical port binding is being used.'
+    ),
 ]
 
 

@@ -81,6 +81,18 @@ class BigipSelfIpManager(object):
 
         return created
 
+    def assure_bigip_selfip_port_only(self, bigip, service, subnetinfo):
+        u"""Ensure the Neutron port for the selfip is created."""
+
+        subnet = subnetinfo['subnet']
+
+        if not subnet:
+            LOG.error('Attempted to create selfip port with '
+                      'null subnet')
+            raise KeyError('subnet must be specified')
+
+        selfip_address = self._get_bigip_selfip_address(bigip, subnet)
+
     def assure_bigip_selfip(self, bigip, service, subnetinfo):
         u"""Ensure the BigIP has a selfip address on the tenant subnet."""
 
