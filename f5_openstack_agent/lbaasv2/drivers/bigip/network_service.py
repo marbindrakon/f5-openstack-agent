@@ -162,9 +162,9 @@ class NetworkServiceBuilder(object):
             for (assure_bigip, subnetinfo) in (
                     itertools.product(self.driver.get_all_bigips(), subnetsinfo)):
 
-            # Create the self IP port in Neutron early to kickstart HPB
-            self.bigip_selfip_manager.assure_bigip_selfip_port_only(
-                assure_bigip, service, subnetinfo)
+                # Create the self IP port in Neutron early to kickstart HPB
+                self.bigip_selfip_manager.assure_bigip_selfip_port_only(
+                    assure_bigip, service, subnetinfo)
 
         if not self.is_service_connected(service):
             raise f5_ex.NetworkNotReady(
