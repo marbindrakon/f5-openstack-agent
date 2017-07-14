@@ -158,6 +158,10 @@ class NetworkServiceBuilder(object):
             return
 
         if self.conf.create_selfip_port_early:
+            subnetsinfo = self._get_subnets_to_assure(service)
+            for (assure_bigip, subnetinfo) in (
+                    itertools.product(self.driver.get_all_bigips(), subnetsinfo)):
+
             # Create the self IP port in Neutron early to kickstart HPB
             self.bigip_selfip_manager.assure_bigip_selfip_port_only(
                 assure_bigip, service, subnetinfo)
